@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.ML.Mkl.Redist.1.7.0\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props" Condition="Exists('..\packages\Microsoft.ML.Mkl.Redist.1.7.0\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props')" />
-  <Import Project="..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.props')" />
-  <Import Project="..\packages\Microsoft.ML.CpuMath.1.7.0\build\netstandard2.0\Microsoft.ML.CpuMath.props" Condition="Exists('..\packages\Microsoft.ML.CpuMath.1.7.0\build\netstandard2.0\Microsoft.ML.CpuMath.props')" />
+  <Import Project="..\packages\Microsoft.ML.Mkl.Redist.1.7.1\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props" Condition="Exists('..\packages\Microsoft.ML.Mkl.Redist.1.7.1\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props')" />
+  <Import Project="..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props')" />
+  <Import Project="..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props" Condition="Exists('..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{884F78F4-C1FA-469E-B68C-13483E84CC8E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Binance_Test</RootNamespace>
+    <RootNamespace>Bifrost</RootNamespace>
     <AssemblyName>6D Forecast AI</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -32,6 +32,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -54,11 +55,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>DimensionalForecastAI.Program</StartupObject>
+    <StartupObject>Bifrost.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>bifrost_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -80,17 +80,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Binance.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Binance.Net.5.1.4\lib\netstandard2.0\Binance.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Coinbase.Commerce, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Coinbase.Commerce.1.1.1\lib\net45\Coinbase.Commerce.dll</HintPath>
-    </Reference>
-    <Reference Include="Coinbase.Pro, Version=4.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Coinbase.Pro.4.1.2\lib\net461\Coinbase.Pro.dll</HintPath>
-    </Reference>
-    <Reference Include="CryptoExchange.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CryptoExchange.Net.3.0.8\lib\netstandard2.0\CryptoExchange.Net.dll</HintPath>
+    <Reference Include="Coinbase.Pro, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Coinbase.Pro.4.2.2\lib\net461\Coinbase.Pro.dll</HintPath>
     </Reference>
     <Reference Include="Extreme.Numerics, Version=8.1.1.0, Culture=neutral, PublicKeyToken=9e513770f58567b2, processorArchitecture=MSIL">
       <HintPath>..\packages\Extreme.Numerics.8.1.1\lib\net462\Extreme.Numerics.dll</HintPath>
@@ -101,50 +92,41 @@
     <Reference Include="Flurl.Http, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.Http.3.0.1\lib\net461\Flurl.Http.dll</HintPath>
     </Reference>
-    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.ML, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.CpuMath, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.CpuMath.1.7.0\lib\netstandard2.0\Microsoft.ML.CpuMath.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.CpuMath.1.7.1\lib\netstandard2.0\Microsoft.ML.CpuMath.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.Data.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.DataView, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.DataView.1.7.0\lib\netstandard2.0\Microsoft.ML.DataView.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.DataView.1.7.1\lib\netstandard2.0\Microsoft.ML.DataView.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.KMeansClustering, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.KMeansClustering.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.KMeansClustering.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.Mkl.Redist, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.Mkl.Redist.1.7.0\lib\netstandard2.0\Microsoft.ML.Mkl.Redist.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.Mkl.Redist.1.7.1\lib\netstandard2.0\Microsoft.ML.Mkl.Redist.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.PCA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.PCA.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.PCA.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.StandardTrainers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.StandardTrainers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.StandardTrainers.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.TimeSeries, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.TimeSeries.1.7.0\lib\netstandard2.0\Microsoft.ML.TimeSeries.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.TimeSeries.1.7.1\lib\netstandard2.0\Microsoft.ML.TimeSeries.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ML.Transforms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ML.1.7.0\lib\netstandard2.0\Microsoft.ML.Transforms.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.Transforms.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SuperSocket.ClientEngine, Version=0.10.0.0, Culture=neutral, PublicKeyToken=ee9af13f57f00acc, processorArchitecture=MSIL">
       <HintPath>..\packages\SuperSocket.ClientEngine.Core.0.10.0\lib\net45\SuperSocket.ClientEngine.dll</HintPath>
@@ -164,7 +146,11 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
@@ -262,11 +248,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TA-Lib-Core, Version=1.0.4998.21369, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TA-Lib.0.5.0.3\lib\TA-Lib-Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Telegram.Bot, Version=15.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telegram.Bot.15.7.1\lib\net45\Telegram.Bot.dll</HintPath>
+    <Reference Include="Telegram.Bot, Version=18.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telegram.Bot.18.0.0\lib\netstandard2.0\Telegram.Bot.dll</HintPath>
     </Reference>
     <Reference Include="WebSocket4Net, Version=0.15.2.11, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
       <HintPath>..\packages\WebSocket4Net.0.15.2\lib\net45\WebSocket4Net.dll</HintPath>
@@ -283,7 +266,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -316,15 +303,18 @@
       <Name>Lapis Philosophorum Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="bifrost_icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.ML.CpuMath.1.7.0\build\netstandard2.0\Microsoft.ML.CpuMath.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.CpuMath.1.7.0\build\netstandard2.0\Microsoft.ML.CpuMath.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.ML.Mkl.Redist.1.7.0\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.Mkl.Redist.1.7.0\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.Mkl.Redist.1.7.1\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.Mkl.Redist.1.7.1\build\netstandard2.0\Microsoft.ML.Mkl.Redist.props'))" />
   </Target>
-  <Import Project="..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.targets" Condition="Exists('..\packages\Microsoft.ML.1.7.0\build\netstandard2.0\Microsoft.ML.targets')" />
+  <Import Project="..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets" Condition="Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets')" />
 </Project>

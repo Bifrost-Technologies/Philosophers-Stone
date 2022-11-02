@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Binance Test")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Bifrost's Philiosophers Stone")]
+[assembly: AssemblyDescription("Multi-dimensional AI capable of forecasting the price of crypto markets")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Binance Test")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("Bifrost Inc")]
+[assembly: AssemblyProduct("Bifrost's Philiosophers Stone")]
+[assembly: AssemblyCopyright("Copyright © Bifrost Inc 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

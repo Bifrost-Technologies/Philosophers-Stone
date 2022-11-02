@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 using Telegram.Bot;
 
 
-namespace lapis_philosophorum
+namespace Bifrost
 {
     public class lapis_philosophorum
     {
@@ -27,12 +27,7 @@ namespace lapis_philosophorum
             try
             {
                 MLContext mlContext = new MLContext();
-                IDataView trainingDataView = mlContext.Data.LoadFromTextFile<DefinedDataset>(
-                                                path: trainingdatapath,
-                                                hasHeader: true,
-                                                separatorChar: ',',
-                                                allowQuoting: true,
-                                                allowSparse: false);
+                IDataView trainingDataView = mlContext.Data.LoadFromTextFile<DefinedDataset>( path: trainingdatapath, hasHeader: true, separatorChar: ',', allowQuoting: true, allowSparse: false);
                 IEstimator<ITransformer> forecastEstimator = BuildTrainingPipeline(mlContext, trainingdatapath, input, horizon, windowsize);
                 ITransformer forecastTransformer = forecastEstimator.Fit(trainingDataView);
                 TimeSeriesPredictionEngine<DefinedDataset, DefinedForecastset> forecastEngine = forecastTransformer.CreateTimeSeriesEngine<DefinedDataset, DefinedForecastset>(mlContext);
@@ -110,7 +105,7 @@ namespace lapis_philosophorum
             await Task.CompletedTask;
             return forecast;
         }
-        public static async Task AnnounceForecast(string currencypair, int horizon, int windowsize, string chatid, bool institutionalmode)
+        public static async Task AnnounceForecast(string currencypair, int horizon, int windowsize, string chatid, bool broadcastmode)
         {
             bool living = true;
             while (living == true)
@@ -124,6 +119,8 @@ namespace lapis_philosophorum
                         float[] forecastlowset;
                         float[] forecastopenset;
                         float[] forecastcloseset;
+                        if (!Directory.Exists(Directory.GetCurrentDirectory() + "/assets/"))
+                            Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/assets/");
                         var successful = false;
                         if (windowsize == 91) 
                             successful = await BuildDailyDataset(currencypair, horizon);
@@ -302,8 +299,12 @@ namespace lapis_philosophorum
                                         if (!finalforecast.Contains("Buy"))
                                         {
                                             forecaststring6 = " | "+ "Buy Here";
-                                            signal = DateTime.Now + "|" + currencypair + "|" + forecasttype + "|" + "Buy|" + high + "=" + today + "|";
+                                            signal = DateTime.Now + "|" + currencypair + "|" + forecasttype + "|" + "Buy |" + high + "=" + today + "|";
                                             signalreadable = currencypair + " | " + forecasttype + " | " + "Buy | $" + high + " at " + today + " >> ";
+                                        }
+                                        else
+                                        {
+                                            forecaststring6 = "";
                                         }
                                     }
                                     if (signaltrade == true & forecasthighset[days] >= forecasthighset.Max())
@@ -359,7 +360,8 @@ namespace lapis_philosophorum
 
                                 if (finalforecast.Contains("Buy") & finalforecast.Contains("Sell") & malignant == false)
                                 {
-                                    await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Forecast" + Environment.NewLine + finalforecast);
+                                    if(broadcastmode == true)
+                                        await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Forecast" + Environment.NewLine + finalforecast);
                                     if (forecasttype.Contains("Hourly"))
                                     {
                                         File.AppendAllText(Directory.GetCurrentDirectory() + "/assets/" + "signals.viventus", signal + Environment.NewLine);
@@ -376,14 +378,17 @@ namespace lapis_philosophorum
                                 Console.WriteLine("Forecasting finished for " + currencypair + " | Horizon: " + horizon + " | " + DateTime.Now);
                                 if (finalforecast.Contains("Crash") | finalforecast.Contains("Dip") | finalforecast.Contains("Drop"))
                                 {
-                                    if (forecasttype == "Hourly Candle")
-                                        await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
-                                    if (forecasttype == "6 Hour Candle")
-                                        await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
-                                    if (forecasttype == "15 Minute Candle")
-                                        await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
-                                    if (forecasttype == "Daily Candle")
-                                        await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
+                                    if (broadcastmode == true)
+                                    {
+                                        if (forecasttype == "Hourly Candle")
+                                            await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
+                                        if (forecasttype == "6 Hour Candle")
+                                            await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
+                                        if (forecasttype == "15 Minute Candle")
+                                            await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
+                                        if (forecasttype == "Daily Candle")
+                                            await telegramBotClient.SendTextMessageAsync(chatId: chatid, text: "ViventusAI ♾️" + currencypair + " " + forecasttype + " Downtrend Forecast" + Environment.NewLine + finalforecast);
+                                    }
                                     if (forecasttype.Contains("Hourly"))
                                         File.AppendAllText(Directory.GetCurrentDirectory() + "/assets/" + "hourly-signals.viventus", signal + Environment.NewLine);
                                     if (forecasttype == "Daily Candle")
@@ -445,6 +450,8 @@ namespace lapis_philosophorum
             DateTime past7 = new DateTime(2020, 06, 01);
             DateTime past8 = new DateTime(2021, 01, 01);
             DateTime past9 = new DateTime(2021, 06, 01);
+            DateTime past10 = new DateTime(2022, 01, 01);
+            DateTime past11 = new DateTime(2022, 06, 01);
             DateTime now = DateTime.Today;
             List<List<Coinbase.Pro.Models.Candle>> dataset = new List<List<Coinbase.Pro.Models.Candle>>();
             try
@@ -468,7 +475,11 @@ namespace lapis_philosophorum
                 await Task.Delay(1200);
                 dataset.Add(await AICoinBaseClient.MarketData.GetHistoricRatesAsync(currencypair, past8, past9, 86400));
                 await Task.Delay(1200);
-                dataset.Add(await AICoinBaseClient.MarketData.GetHistoricRatesAsync(currencypair, past9, now, 86400));
+                dataset.Add(await AICoinBaseClient.MarketData.GetHistoricRatesAsync(currencypair, past9, past10, 86400));
+                await Task.Delay(1200);
+                dataset.Add(await AICoinBaseClient.MarketData.GetHistoricRatesAsync(currencypair, past10, past11, 86400));
+                await Task.Delay(1200);
+                dataset.Add(await AICoinBaseClient.MarketData.GetHistoricRatesAsync(currencypair, past11, now, 86400));
 
                 try { File.Delete(Directory.GetCurrentDirectory() + "/assets/" + basepair + horizon + ".csv"); } catch { }
                 File.AppendAllText(Directory.GetCurrentDirectory() + "/assets/" + basepair + horizon + ".csv", "time,high,low,open,close,volume" + Environment.NewLine);
@@ -667,7 +678,7 @@ namespace lapis_philosophorum
         {
             try
             {
-                var dataset = System.IO.File.ReadAllLines(Directory.GetCurrentDirectory() + "/assets/" + currency + horizon + ".csv");
+                var dataset = File.ReadAllLines(Directory.GetCurrentDirectory() + "/assets/" + currency + horizon + ".csv");
                 string[] newdataset = new string[dataset.Length];
                 int count = 0;
                 foreach (var entry in dataset)
@@ -680,8 +691,8 @@ namespace lapis_philosophorum
                         count++;
                     }
                 }
-                System.IO.File.Delete(Directory.GetCurrentDirectory() + "/assets/" + currency + horizon + ".csv");
-                System.IO.File.AppendAllLines(Directory.GetCurrentDirectory() + "/assets/" + currency + horizon + ".csv", newdataset);
+                File.Delete(Directory.GetCurrentDirectory() + "/assets/" + currency + horizon + ".csv");
+                File.AppendAllLines(Directory.GetCurrentDirectory() + "/assets/" + currency + horizon + ".csv", newdataset);
                 Console.WriteLine("Cleanse Finished!");
             }
             catch (Exception fg)
