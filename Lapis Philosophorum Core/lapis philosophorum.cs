@@ -21,7 +21,7 @@ namespace Bifrost
       
         public static CoinbaseProClient AICoinBaseClient { get; private set; }
         public static TelegramBotClient telegramBotClient { get; set; }
-        public static async Task<bool> CreateModel(string trainingdatapath, string outputmodelpath, string input, int horizon, int windowsize)
+        public async Task<bool> CreateModel(string trainingdatapath, string outputmodelpath, string input, int horizon, int windowsize)
         {
             var successful = false;
             try
@@ -42,7 +42,7 @@ namespace Bifrost
             await Task.CompletedTask;
             return successful;
         }
-        public static IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext, string trainingdatapath, string inputcolumn, int horizon, int windowsize)
+        public IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext, string trainingdatapath, string inputcolumn, int horizon, int windowsize)
         {
             Microsoft.ML.Transforms.ColumnSelectingEstimator dataProcessPipeline = null;
             dataProcessPipeline = mlContext.Transforms.SelectColumns("date","high", "low", "open", "close");
@@ -61,7 +61,7 @@ namespace Bifrost
             var trainingPipeline = dataProcessPipeline.Append(trainer);
             return trainingPipeline;
         }
-        static void Evaluate(IDataView testData, ITransformer model, MLContext mlContext)
+        public void Evaluate(IDataView testData, ITransformer model, MLContext mlContext)
         {
             IDataView predictions = model.Transform(testData);
             IEnumerable<float> actual =
@@ -79,7 +79,7 @@ namespace Bifrost
             Console.WriteLine($"Mean Absolute Error: {MAE:F3}");
             Console.WriteLine($"Root Mean Squared Error: {RMSE:F3}\n");
         }
-        public static async Task<float[]> GenerateForecast(string modelpath, string currencypair, string input, int horizon)
+        public async Task<float[]> GenerateForecast(string modelpath, string currencypair, string input, int horizon)
         {
             Random rnd = new Random();
             var ci = new CultureInfo("en-us");
@@ -105,7 +105,7 @@ namespace Bifrost
             await Task.CompletedTask;
             return forecast;
         }
-        public static async Task AnnounceForecast(string currencypair, int horizon, int windowsize, string chatid, bool broadcastmode)
+        public async Task AnnounceForecast(string currencypair, int horizon, int windowsize, string chatid, bool broadcastmode)
         {
             bool living = true;
             while (living == true)
@@ -180,8 +180,6 @@ namespace Bifrost
                                 var finalforecast = "";
                                 string signal = "";
                                 string signalreadable = "";
-                                string buyprice = "";
-                                string sellprice = "";
                                 var positivetrendpoints = 0;
                                 var negativetrendpoints = 0;
                                 var profitrate = 1.0;

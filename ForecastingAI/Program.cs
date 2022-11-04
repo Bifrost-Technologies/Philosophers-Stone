@@ -44,12 +44,21 @@ namespace Bifrost
 
             //Neural-Tree
             Console.WriteLine("Watching 6 dimensions and waiting for the right time to forecast... Do not close me!");
-            lapis_philosophorum.AnnounceForecast("BTC-USD", 7, 90, telegram_chatid_daily, broadcastToTelegram);
-            lapis_philosophorum.AnnounceForecast("BTC-USD", 24, 288, telegram_chatid_hourly, broadcastToTelegram);
-            lapis_philosophorum.AnnounceForecast("ETH-USD", 7, 90, telegram_chatid_daily, broadcastToTelegram);
-            lapis_philosophorum.AnnounceForecast("ETH-USD", 24, 288, telegram_chatid_hourly, broadcastToTelegram);
-            lapis_philosophorum.AnnounceForecast("SOL-USD", 7, 90, telegram_chatid_daily, broadcastToTelegram);
-            await lapis_philosophorum.AnnounceForecast("SOL-USD", 24, 288, telegram_chatid_hourly, broadcastToTelegram);
+            lapis_philosophorum D1 = new lapis_philosophorum();
+            lapis_philosophorum D2 = new lapis_philosophorum();
+            lapis_philosophorum D3 = new lapis_philosophorum();
+            lapis_philosophorum D4 = new lapis_philosophorum();
+            lapis_philosophorum D5 = new lapis_philosophorum();
+            lapis_philosophorum D6 = new lapis_philosophorum();
+
+            #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            D1.AnnounceForecast("BTC-USD", 7, 90, telegram_chatid_daily, broadcastToTelegram);
+            D2.AnnounceForecast("BTC-USD", 24, 288, telegram_chatid_hourly, broadcastToTelegram);
+            D3.AnnounceForecast("ETH-USD", 7, 90, telegram_chatid_daily, broadcastToTelegram);
+            D4.AnnounceForecast("ETH-USD", 24, 288, telegram_chatid_hourly, broadcastToTelegram);
+            D5.AnnounceForecast("SOL-USD", 7, 90, telegram_chatid_daily, broadcastToTelegram);
+            #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            await D6.AnnounceForecast("AAVE-USD", 24, 288, telegram_chatid_hourly, broadcastToTelegram);
         }
     }
 }
