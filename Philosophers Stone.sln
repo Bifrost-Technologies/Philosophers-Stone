@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forecast AI & Frontend", "Forecast AI & Frontend\Forecast AI & Frontend.csproj", "{2C0FED18-992A-44A5-BCDE-E53B3EE20159}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236} = {C71D2D3B-46DF-4BC8-83E7-95982C23D236}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lapis Philosophorum Core", "Lapis Philosophorum Core\Lapis Philosophorum Core.csproj", "{C71D2D3B-46DF-4BC8-83E7-95982C23D236}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Debug|x64.Build.0 = Debug|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Release|x64.ActiveCfg = Release|Any CPU
+		{2C0FED18-992A-44A5-BCDE-E53B3EE20159}.Release|x64.Build.0 = Release|Any CPU
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Debug|x64.ActiveCfg = Debug|x64
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Debug|x64.Build.0 = Debug|x64
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Release|x64.ActiveCfg = Release|x64
+		{C71D2D3B-46DF-4BC8-83E7-95982C23D236}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7216831-7BAD-4636-88AF-41DACC225ACF}
+	EndGlobalSection
+EndGlobal

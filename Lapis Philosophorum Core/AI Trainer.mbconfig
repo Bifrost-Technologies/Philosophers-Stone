@@ -1,0 +1,191 @@
+﻿{
+  "Scenario": "Forecasting",
+  "DataSource": {
+    "Type": "TabularFile",
+    "Version": 1,
+    "FilePath": "",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "date",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 4
+      },
+      {
+        "ColumnName": "high",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 4
+      },
+      {
+        "ColumnName": "low",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 4
+      },
+      {
+        "ColumnName": "open",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 4
+      },
+      {
+        "ColumnName": "close",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 4
+      },
+      {
+        "ColumnName": "volume",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 4
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 12.539393107096354,
+        "RuntimeInSeconds": 0.174,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 242,
+            "SeriesLength": 5297,
+            "TrainSize": 1679,
+            "Horizon": 24,
+            "OutputColumnName": "high",
+            "InputColumnName": "high",
+            "ConfidenceLowerBoundColumn": "high_LB",
+            "ConfidenceUpperBoundColumn": "high_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 12.650334676106771,
+        "RuntimeInSeconds": 0.776,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 602,
+            "SeriesLength": 3270,
+            "TrainSize": 1679,
+            "Horizon": 24,
+            "OutputColumnName": "high",
+            "InputColumnName": "high",
+            "ConfidenceLowerBoundColumn": "high_LB",
+            "ConfidenceUpperBoundColumn": "high_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 18.50555419921875,
+        "RuntimeInSeconds": 0.86,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 622,
+            "SeriesLength": 5329,
+            "TrainSize": 1679,
+            "Horizon": 24,
+            "OutputColumnName": "high",
+            "InputColumnName": "high",
+            "ConfidenceLowerBoundColumn": "high_LB",
+            "ConfidenceUpperBoundColumn": "high_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 18.865376790364582,
+        "RuntimeInSeconds": 0.59,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 499,
+            "SeriesLength": 1213,
+            "TrainSize": 1679,
+            "Horizon": 24,
+            "OutputColumnName": "high",
+            "InputColumnName": "high",
+            "ConfidenceLowerBoundColumn": "high_LB",
+            "ConfidenceUpperBoundColumn": "high_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 19.965586344401043,
+        "RuntimeInSeconds": 0.356,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 387,
+            "SeriesLength": 4627,
+            "TrainSize": 1679,
+            "Horizon": 24,
+            "OutputColumnName": "high",
+            "InputColumnName": "high",
+            "ConfidenceLowerBoundColumn": "high_LB",
+            "ConfidenceUpperBoundColumn": "high_UB"
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "ForecastBySsa"
+    },
+    "Schema": "e0",
+    "MetricName": "MAE",
+    "ModelFilePath": "C:\\Users\\proje\\source\\repos\\Philosophers-Stone\\Lapis Philosophorum Core\\AI Trainer.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 4,
+  "TrainingOption": {
+    "Version": 1,
+    "TrainingTime": 900,
+    "Type": "ForecastingTrainingOption",
+    "UseCrossValidation": false,
+    "Seed": 0,
+    "OptimizeMetric": "MAE",
+    "Horizon": 24,
+    "TimeColumn": "date",
+    "LabelColumn": "high",
+    "UseDefaultIndex": false
+  }
+}

@@ -1,19 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Lapis_Philosophorum_Core</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
     <LangVersion>10.0</LangVersion>
+    <ApplicationIcon>bifrost_icon.ico</ApplicationIcon>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Content Include="bifrost_icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Coinbase.Pro" Version="4.2.2" />
     <PackageReference Include="Extreme.Numerics" Version="8.1.9" />
     <PackageReference Include="Extreme.Numerics.Mkl.net5.0" Version="8.0.0" />
-    <PackageReference Include="Microsoft.ML" Version="1.7.1" />
-    <PackageReference Include="Microsoft.ML.TimeSeries" Version="1.7.1" />
+    <PackageReference Include="Microsoft.ML" Version="2.0.1" />
+    <PackageReference Include="Microsoft.ML.TimeSeries" Version="2.0.1" />
     <PackageReference Include="Telegram.Bot" Version="18.0.0" />
   </ItemGroup>
-
+  <ItemGroup Label="BlockchainPrediction">
+    <None Include="AI Trainer.consumption.cs">
+      <DependentUpon>AI Trainer.mbconfig</DependentUpon>
+    </None>
+    <None Include="AI Trainer.training.cs">
+      <DependentUpon>AI Trainer.mbconfig</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="AI Trainer.mlnet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Label="AI Trainer">
+    <None Include="AI Trainer.consumption.cs">
+      <DependentUpon>AI Trainer.mbconfig</DependentUpon>
+    </None>
+    <None Include="AI Trainer.mlnet">
+      <DependentUpon>AI Trainer.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AI Trainer.training.cs">
+      <DependentUpon>AI Trainer.mbconfig</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

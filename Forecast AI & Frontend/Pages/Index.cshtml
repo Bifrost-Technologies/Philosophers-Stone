@@ -1,0 +1,163 @@
+﻿@page
+@using System.Net;
+@using System.IO;
+@using Bifrost.PhilosophersStone;
+@using Newtonsoft.Json;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    
+
+    var hourlyprediction = System.IO.File.ReadAllText(lapis_philosophorum.WEBDATA_FILEPATH + "/ETH-USDHourly.json");
+    var min15prediction = System.IO.File.ReadAllText(lapis_philosophorum.WEBDATA_FILEPATH + "/ETH-USDMinute15.json");
+    var min5prediction = System.IO.File.ReadAllText(lapis_philosophorum.WEBDATA_FILEPATH + "/ETH-USDMinute5.json");
+    
+    //Chart Dimensions
+    var D1 = JsonConvert.DeserializeObject<Candle[]>(hourlyprediction);
+    var D2 = JsonConvert.DeserializeObject<Candle[]>(min15prediction);
+    var D3 = JsonConvert.DeserializeObject<Candle[]>(min5prediction);
+    
+}
+
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<script> 
+    const chart = LightweightCharts.createChart(document.body, { width: 1800, height: 800});
+   
+ 
+    const D1predictedHighs = chart.addLineSeries({
+        color: '#006507',
+        lineStyle: 0,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lineType: 2,
+        lastPriceAnimation: LightweightCharts.LastPriceAnimationMode.Continuous,
+    });
+    const D1predictedLows = chart.addLineSeries({
+        color: '#651300',
+        lineStyle: 0,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lineType: 2,
+        lastPriceAnimation: LightweightCharts.LastPriceAnimationMode.Continuous,
+    });
+    const D2predictedHighs = chart.addLineSeries({
+        color: '#d59900',
+        lineStyle: 0,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lineType: 2,
+        lastPriceAnimation: LightweightCharts.LastPriceAnimationMode.Continuous,
+    });
+    const D2predictedLows = chart.addLineSeries({
+        color: '#a900e5',
+        lineStyle: 0,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lineType: 2,
+        lastPriceAnimation: LightweightCharts.LastPriceAnimationMode.Continuous,
+    });
+    const D3predictedHighs = chart.addLineSeries({
+        color: '#00fff2',
+        lineStyle: 0,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lineType: 2,
+        lastPriceAnimation: LightweightCharts.LastPriceAnimationMode.Continuous,
+    });
+    const D3predictedLows = chart.addLineSeries({
+        color: '#e5009e',
+        lineStyle: 0,
+        lineWidth: 1,
+        priceLineVisible: false,
+        lineType: 2,
+        lastPriceAnimation: LightweightCharts.LastPriceAnimationMode.Continuous,
+    });
+    
+
+    @{
+        string JSdataset1high = "";
+        string JSdataset1low = "";
+        if (D1 != null)
+        {
+            foreach (var candle in D1)
+            {
+                JSdataset1high += " { time: Number(" + candle.date + "), value: " + candle.high + "}," + Environment.NewLine;
+                JSdataset1low += " { time: Number(" + candle.date + "), value: " + candle.low + "}," + Environment.NewLine;
+            }
+        }
+    }
+        D1predictedHighs.setData([@Html.Raw(JSdataset1high) ]);
+        D1predictedLows.setData([@Html.Raw(JSdataset1low) ]);
+    
+    
+    @{
+        string JSdataset2high = "";
+        string JSdataset2low = "";
+        if (D2 != null)
+        {
+            foreach (var candle in D2)
+            {
+                JSdataset2high += " { time: Number(" + candle.date + "), value: " + candle.high + "}," + Environment.NewLine;
+                JSdataset2low += " { time: Number(" + candle.date + "), value: " + candle.low + "}," + Environment.NewLine;
+            }
+        }
+    }
+    D2predictedHighs.setData([ @Html.Raw(JSdataset2high) ]);
+    D2predictedLows.setData([ @Html.Raw(JSdataset2low) ]);
+    
+    
+    @{
+        string JSdataset3high = "";
+        string JSdataset3low = "";
+        if (D3 != null)
+        {
+            foreach (var candle in D3)
+            {
+                JSdataset3high += " { time: Number(" + candle.date + "), value: " + candle.high + "}," + Environment.NewLine;
+                JSdataset3low += " { time: Number(" + candle.date + "), value: " + candle.low + "}," + Environment.NewLine;
+            }
+        }
+    }
+    D3predictedHighs.setData([@Html.Raw(JSdataset3high) ]);
+    D3predictedLows.setData([@Html.Raw(JSdataset3low) ]);
+    
+    chart.timeScale().fitContent();
+   
+    chart.applyOptions({
+        timeScale:{
+            timeVisible: true,
+            secondsVisible: true,
+        },
+        grid: {
+                vertLines: {
+                    color: 'rgba(70, 130, 180, 0.5)',
+                    style: 1,
+                    visible: true,
+                },
+                horzLines: {
+                    color: 'rgba(70, 130, 180, 0.5)',
+                    style: 1,
+                    visible: true,
+                },
+        },  
+        watermark: {
+            color: 'rgba(255,215, 0, 0.4)',
+                visible: true,
+                text: 'Aurora Machine Learning Forecasts',
+                fontSize: 24,
+                horzAlign: 'left',
+                vertAlign: 'bottom',
+        },
+        layout: {
+            background: {
+                type: LightweightCharts.ColorType.VerticalGradient,
+                topColor: 'rgb(17, 17,17)',
+                bottomColor: 'rgb(5, 5,5)',
+            },
+            textColor: '#ffffff',
+            fontSize: 12,
+            fontFamily: 'Calibri',
+            
+        },
+    });
+    </script>
